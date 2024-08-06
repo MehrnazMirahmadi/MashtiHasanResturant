@@ -1,0 +1,21 @@
+﻿@using MashtiHasanRestaurant.Core.Services.Interface
+@inject IFoodService FoodService;
+
+<li class="dropdown">
+    <ul>
+        <li class="dropdown">
+            <a href="#"><span>دسته بندی</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+                @{
+                    var categories = FoodService.GetAllCategories();
+                }
+                @foreach (var item in categories)
+                {
+                    <li>
+                        <a class="dropdown-item" href="/Group/@item.CategoryId/@item.CategoryName">@item.CategoryName</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+</li>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MashtiHasanRestaurant.Core.DTOs.FoodItemViewModel>
+
+<section id="menu" class="menu section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Our Menu</h2>
+        <p><span>Check Our</span> <span class="description-title">Yummy Menu</span></p>
+    </div>
+
+    <div class="container">
+        <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
+            @foreach (var categoryGroup in Model.GroupBy(m => new { m.CategoryName, m.CategoryId }))
+            {
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link @(Model.First().CategoryName == categoryGroup.Key.CategoryName ? "active" : "")"
+                            data-bs-toggle="tab"
+                            data-bs-target="#menu-@categoryGroup.Key.CategoryId"
+                            type="button"
+                            role="tab">
+                        <h4>@categoryGroup.Key.CategoryName</h4>
+                    </button>
+                </li>
+            }
+        </ul>
+
+        <div class="tab-content">
+            @foreach (var categoryGroup in Model.GroupBy(m => new { m.CategoryName, m.CategoryId }))
+            {
+                <div class="tab-pane fade @(Model.First().CategoryName == categoryGroup.Key.CategoryName ? "show active" : "")"
+                     id="menu-@categoryGroup.Key.CategoryId" role="tabpanel">
+                    <div class="tab-header text-center">
+                        <p>Menu</p>
+                        <h3>@categoryGroup.Key.CategoryName</h3>
+                    </div>
+
+                    <div class="row gy-5">
+                        @foreach (var item in categoryGroup)
+                        {
+                            <div class="col-lg-4 menu-item">
+                                <a href="@Url.Content("~/assets/img/menu/menu-item-" + item.FoodId + ".png")" class="glightbox">
+                                    <img src="@Url.Content("~/assets/img/menu/menu-item-" + item.FoodId + ".png")" class="menu-img img-fluid" alt="@item.FoodName">
+                                </a>
+
+                                <h4>@item.FoodName</h4>
+                                <p class="ingredients">@item.Ingredients</p>
+                                <p class="price">$@item.UnitPrice</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Ensure Bootstrap JavaScript is included -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

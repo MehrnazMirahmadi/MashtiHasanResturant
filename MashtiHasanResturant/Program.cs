@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 #region IoC
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IUserService, UserService>();
 #endregion
 #region dbContext
 builder.Services.AddDbContext<ResturantMashtiHasanContext>(options => options.UseSqlServer(

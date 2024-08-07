@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MashtiHasanRestaurant.Core.DTOs.FoodItemViewModel>
-
 @{
-    ViewData["Title"] = ViewData["GroupName"];
+    ViewData["Title"] = "ShowGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>محصولات گروه @ViewData["GroupName"]</h1>
 <hr />
 
-<div class="row">
+<div >
     @foreach (var item in Model)
     {
         <div class="col-lg-4 menu-item">
@@ -21,3 +21,5 @@
         </div>
     }
 </div>
+
+

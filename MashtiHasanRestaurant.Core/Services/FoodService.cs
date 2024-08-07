@@ -2,18 +2,20 @@
 using MashtiHasanRestaurant.Core.Services.Interface;
 using MashtiHasanRestaurant.DataLayer.Context;
 using MashtiHasanRestaurant.DataLayer.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MashtiHasanRestaurant.Core.Services
 {
-    public class FoodService :IFoodService
+    public class FoodService : IFoodService
     {
         private readonly ResturantMashtiHasanContext _resturantMashtiHasanContext;
+
         public FoodService(ResturantMashtiHasanContext resturantMashtiHasanContext)
         {
             _resturantMashtiHasanContext = resturantMashtiHasanContext;
@@ -27,26 +29,12 @@ namespace MashtiHasanRestaurant.Core.Services
                 .Distinct()
                 .ToList();
         }
+
         public IEnumerable<Category> GetAllCategories()
         {
             return _resturantMashtiHasanContext.Category;
         }
 
-        //public async Task<List<FoodItemViewModel>> GetMenuItemsAsync()
-        //{
-        //    return await _resturantMashtiHasanContext.Food
-        //        .Include(f => f.Category)
-        //        .Select(f => new FoodItemViewModel
-        //        {
-        //            FoodId = f.FoodId,
-        //            FoodName = f.FoodName,
-        //            Ingredients = f.Ingredient,
-        //            UnitPrice = f.UnitPrice,
-        //            ImageAddress = f.ImageAddress,
-        //            CategoryName = f.Category.CategoryName
-        //        })
-        //        .ToListAsync();
-        //}
         public IEnumerable<ShowGroupViewModel> GetGroupForShow()
         {
             return _resturantMashtiHasanContext.Category
@@ -58,6 +46,7 @@ namespace MashtiHasanRestaurant.Core.Services
                 })
                 .ToList();
         }
+
         public async Task<List<FoodItemViewModel>> GetMenuItemsAsync()
         {
             return await _resturantMashtiHasanContext.Food
@@ -71,7 +60,7 @@ namespace MashtiHasanRestaurant.Core.Services
                     ImageAddress = f.ImageAddress,
                     CategoryName = f.Category.CategoryName,
                     CategoryId = f.CategoryId
-                    
+
                 })
                 .ToListAsync();
         }
@@ -94,5 +83,61 @@ namespace MashtiHasanRestaurant.Core.Services
                 .ToListAsync();
         }
 
+        public List<Food> GetFoods()
+        {
+            return _resturantMashtiHasanContext.Food.ToList();
+        }
+
+        public int AddFood(Food food, IFormFile ImageFood)
+        {
+            if (ImageFood != null)
+            {
+                string imagePath = Path.Combine("wwwroot/images/foods", ImageFood.FileName);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    ImageFood.CopyTo(stream);
+                }
+                food.ImageAddress = "/images/foods/" + ImageFood.FileName;
+            }
+
+            _resturantMashtiHasanContext.Food.Add(food);
+            _resturantMashtiHasanContext.SaveChanges();
+            return food.FoodId;
+        }
+
+        public Food GetFoodById(int id)
+        {
+            return _resturantMashtiHasanContext.Food
+                .Include(f => f.Category)
+                .FirstOrDefault(f => f.FoodId == id);
+        }
+
+        public void UpdateFoodById(int id)
+        {
+            var food = _resturantMashtiHasanContext.Food.Find(id);
+            if (food == null)
+            {
+                throw new KeyNotFoundException("Food not found.");
+            }
+
+            // Update the food properties as needed.
+            // Example:
+            // food.FoodName = "New Food Name";
+
+            _resturantMashtiHasanContext.Food.Update(food);
+            _resturantMashtiHasanContext.SaveChanges();
+        }
+
+        public void DeleteFoodById(int id)
+        {
+            var food = _resturantMashtiHasanContext.Food.Find(id);
+            if (food == null)
+            {
+                throw new KeyNotFoundException("Food not found.");
+            }
+
+            _resturantMashtiHasanContext.Food.Remove(food);
+            _resturantMashtiHasanContext.SaveChanges();
+        }
     }
 }

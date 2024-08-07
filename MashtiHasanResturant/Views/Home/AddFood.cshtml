@@ -1,0 +1,47 @@
+﻿@using MashtiHasanRestaurant.Core.DTOs
+@model AddFoodViewModel
+@{
+    ViewData["Title"] = "AddFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Add New Food Item</h1>
+
+<form asp-action="AddFood" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="FoodName" class="control-label"></label>
+        <input asp-for="FoodName" class="form-control" />
+        <span asp-validation-for="FoodName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ingredients" class="control-label"></label>
+        <textarea asp-for="Ingredients" class="form-control"></textarea>
+        <span asp-validation-for="Ingredients" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UnitPrice" class="control-label"></label>
+        <input asp-for="UnitPrice" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageFile" class="control-label"></label>
+        <input asp-for="ImageFile" type="file" class="form-control" />
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Food</button>
+    </div>
+</form>
+
+
+}
+

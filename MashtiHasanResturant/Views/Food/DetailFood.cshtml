@@ -1,0 +1,20 @@
+﻿@using MashtiHasanRestaurant.DataLayer.Entities
+@model Food
+@{
+    ViewData["Title"] = "DetailFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h2>@Model.FoodName</h2>
+    <p><strong>Category:</strong> @Model.Category.CategoryName</p>
+    <p><strong>Description:</strong> @Model.Ingredient</p>
+    <p><strong>Price:</strong> @Model.UnitPrice.ToString("C")</p>
+</div>
+
+@* <a href="@Url.Action("Index", "Food")">Back to list</a>
+ *@
+

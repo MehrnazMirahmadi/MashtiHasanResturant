@@ -20,7 +20,7 @@ namespace MashtiHasanRestaurant.Core.Services.Interface
         List<Food> GetFoods();
         int AddFood(AddFoodViewModel food);
 
-        //Food GetFoodById(int id);
+        Food GetFoodById(int id);
         //void UpdateFoodById(int id);
         //void DeleteFoodById(int id);
 

@@ -91,12 +91,14 @@ namespace MashtiHasanRestaurant.Core.Services
         }
 
 
-        //public Food GetFoodById(int id)
-        //{
-        //    return _resturantMashtiHasanContext.Food
-        //        .Include(f => f.Category)
-        //        .FirstOrDefault(f => f.FoodId == id);
-        //}
+        public Food GetFoodById(int id)
+        {
+            
+            return _resturantMashtiHasanContext.Food
+                .Include(f => f.Category)
+                .FirstOrDefault(f => f.FoodId == id);
+        }
+
 
         //public void UpdateFoodById(int id)
         //{

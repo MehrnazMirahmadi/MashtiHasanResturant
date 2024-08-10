@@ -73,6 +73,22 @@ namespace MashtiHasanResturant.Controllers
         }
 
         #endregion
+        #region DetailFood
+        [HttpGet("DetailFood/{id}")]
+        public IActionResult DetailFood(int id)
+        {
+           
+                var food = _foodService.GetFoodById(id);
+                if (food == null)
+                {
+                    return NotFound();
+                }
+
+                return View(food);
+           
+         
+        }
+        #endregion
     }
 
 }

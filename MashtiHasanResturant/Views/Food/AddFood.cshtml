@@ -1,0 +1,49 @@
+﻿@using MashtiHasanRestaurant.Core.DTOs
+@model AddFoodViewModel
+@{
+    ViewData["Title"] = "AddFood";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Add New Food Item</h1>
+
+<form asp-action="AddFood" asp-controller="Food" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Food.FoodName"  class="control-label"></label>
+        <input asp-for="Food.FoodName" name="FoodName" class="form-control" />
+        <span asp-validation-for="Food.FoodName" class="text-danger"></span>
+    </div>
+
+   
+    <div class="form-group">
+    <label asp-for="Food.Ingredient" class="control-label"></label>
+        <textarea asp-for="Food.Ingredient" name="Ingredient" class="form-control"></textarea>
+        <span asp-validation-for="Food.Ingredient" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Food.UnitPrice" class="control-label"></label>
+        <input asp-for="Food.UnitPrice" name="UnitPrice" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Food.UnitPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Food.CategoryId" class="control-label">Category</label>
+        <select asp-for="Food.CategoryId" name="CategoryId" asp-items="Model.Cat" class="form-control"></select>
+        <span asp-validation-for="Food.CategoryId" class="text-danger"></span>
+    </div>
+
+    <!-- If image upload functionality is needed in the future, uncomment this block -->
+    @*<div class="form-group">
+    <label asp-for="ImageFile" class="control-label"></label>
+    <input asp-for="ImageFile" type="file" class="form-control" />
+    <span asp-validation-for="ImageFile" class="text-danger"></span>
+    </div>*@
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Food</button>
+    </div>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

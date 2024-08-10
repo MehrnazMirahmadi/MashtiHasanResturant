@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MashtiHasanRestaurant.DataLayer.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,13 +21,12 @@ namespace MashtiHasanRestaurant.Core.DTOs
         public string CategoryName { get; set; }
         public int CategoryId { get; set; }
     }
+  
     public class AddFoodViewModel
     {
-        public string FoodName { get; set; }
-        public string Ingredients { get; set; }
-        public int UnitPrice { get; set; }
-        public int CategoryId { get; set; }
-        public IFormFile ImageFile { get; set; } 
-        public IEnumerable<SelectListItem> Categories { get; set; } 
+       
+        public Food Food { get; set; }
+        public SelectList Cat { get; set; }
     }
+
 }

@@ -18,10 +18,11 @@ namespace MashtiHasanRestaurant.Core.Services.Interface
         Task<List<FoodItemViewModel>> GetMenuItemsAsync();
         Task<List<FoodItemViewModel>> GetFoodItemsByCategoryAsync(int categoryId);
         List<Food> GetFoods();
-        int AddFood(Food food,IFormFile ImageFood);
-        Food GetFoodById(int id);
-        void UpdateFoodById(int id);
-        void DeleteFoodById(int id);
-        
+        int AddFood(AddFoodViewModel food);
+
+        //Food GetFoodById(int id);
+        //void UpdateFoodById(int id);
+        //void DeleteFoodById(int id);
+
     }
 }

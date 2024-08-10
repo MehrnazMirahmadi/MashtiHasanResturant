@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MashtiHasanRestaurant.Core.Security;
 using MashtiHasanRestaurant.DataLayer.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace MashtiHasanResturant.Controllers
 {
@@ -74,19 +75,25 @@ namespace MashtiHasanResturant.Controllers
 
         #endregion
         #region DetailFood
-        [HttpGet("DetailFood/{id}")]
         public IActionResult DetailFood(int id)
         {
-           
                 var food = _foodService.GetFoodById(id);
                 if (food == null)
                 {
                     return NotFound();
                 }
-
                 return View(food);
-           
          
+        }
+        #endregion
+        #region Delete 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int FoodId)
+        {
+            var food = await _resturantMashtiContext.Food.FirstOrDefaultAsync(x => x.FoodId == FoodId);
+            _resturantMashtiContext.Food.Remove(food);
+            await _resturantMashtiContext.SaveChangesAsync();
+            return RedirectToAction("index");
         }
         #endregion
     }

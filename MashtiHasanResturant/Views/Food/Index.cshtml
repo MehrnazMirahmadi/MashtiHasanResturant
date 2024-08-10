@@ -13,6 +13,7 @@
         <td>UnitPrice</td>
         <td>Ingredient</td>
         <td>Delete</td>
+        <td>Detail</td>
     </tr>
     @foreach (var item in this.Model)
     {
@@ -22,11 +23,20 @@
             <td>@item.UnitPrice</td>
             <td>@item.Ingredient</td>
             <td>
-                <form asp-action="Delete" asp-controller="Food" method="post">
-                    <button value="@item.FoodId" name="FoodId">Delete</button>
+                <form asp-action="Delete" asp-controller="Food" method="get">
+                    <button asp-action="Delete" value="@item.FoodId" name="FoodId">Delete</button>
                 </form>
             </td>
+            <td>
+                <form asp-action="DetailFood" method="get">
+                   <input type="hidden" name="id" value="@item.FoodId" />
+                    <button type="submit">Detail</button>
+                </form>
+
+
+            </td>
         </tr>
+       
     }
 </table>
 

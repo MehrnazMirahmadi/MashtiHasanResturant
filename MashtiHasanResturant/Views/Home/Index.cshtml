@@ -42,7 +42,7 @@
             }
         </ul>
 
-        <div class="tab-content">
+        <div class="tab-content" id="#hero">
             @foreach (var categoryGroup in Model.GroupBy(m => new { m.CategoryName, m.CategoryId }))
             {
                 <div class="tab-pane fade @(Model.First().CategoryName == categoryGroup.Key.CategoryName ? "show active" : "")"

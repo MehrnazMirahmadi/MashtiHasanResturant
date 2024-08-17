@@ -7,19 +7,23 @@
 <h1>محصولات گروه @ViewData["GroupName"]</h1>
 <hr />
 
-<div >
+<div class="row" >
     @foreach (var item in Model)
     {
-        <div class="col-lg-4 menu-item">
+        <div class="col-lg-4 menu-item  text-center">
             <a href="@Url.Content("~/assets/img/menu/menu-item-" + item.FoodId + ".png")" class="glightbox">
-                <img src="@Url.Content("~/assets/img/menu/menu-item-" + item.FoodId + ".png")" class="menu-img img-fluid" alt="@item.FoodName">
+                <img src="@Url.Content("~/assets/img/menu/menu-item-" + item.FoodId + ".png")" class="img_food menu-img img-fluid" alt="@item.FoodName">
             </a>
 
-            <h4>@item.FoodName</h4>
-            <p class="ingredients">@item.Ingredients</p>
-            <p class="price">$@item.UnitPrice</p>
+            <h4 class="text-center">@item.FoodName</h4>
+            <p class="ingredients text-center">@item.Ingredients</p>
+            <p class="price text-center">$@item.UnitPrice</p>
         </div>
     }
 </div>
+@section Scripts {
+    <script src="/assets/js/main.js"></script>
+}
+
 
 

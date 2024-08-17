@@ -26,55 +26,54 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-12">
                     <h3>عضویت در <strong>رستوران مشتی حسن</strong></h3>
-                    <p class="mb-4">برای عضویت در سایت، فرم زیر را پر کنید.</p>
+                
 
                     <!-- Registration Form -->
                     <form asp-action="Register" method="post">
                         <!-- Customer Name Input -->
                         <div class="form-group">
-                            <label for="CustomerName">نام و نام خانوادگی</label>
                             <input asp-for="CustomerName" type="text" class="form-control" placeholder="نام و نام خانوادگی">
                             <span asp-validation-for="CustomerName" class="text-danger"></span>
                         </div>
 
                         <!-- Mobile Input -->
                         <div class="form-group">
-                            <label for="Mobile">موبایل</label>
+                           
                             <input asp-for="Mobile" type="text" class="form-control" placeholder="موبایل">
                             <span asp-validation-for="Mobile" class="text-danger"></span>
                         </div>
 
                         <!-- Tel Input -->
                         <div class="form-group">
-                            <label for="Tel">تلفن</label>
+                           
                             <input asp-for="Tel" type="text" class="form-control" placeholder="تلفن">
                             <span asp-validation-for="Tel" class="text-danger"></span>
                         </div>
 
                         <!-- Contact Title Input -->
                         <div class="form-group">
-                            <label for="ConcatTitle">عنوان تماس</label>
+                           
                             <input asp-for="ConcatTitle" type="text" class="form-control" placeholder="عنوان تماس">
                             <span asp-validation-for="ConcatTitle" class="text-danger"></span>
                         </div>
 
                         <!-- Address Input -->
                         <div class="form-group">
-                            <label for="Address">آدرس</label>
+                           
                             <input asp-for="Address" type="text" class="form-control" placeholder="آدرس">
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
 
                         <!-- Password Input -->
                         <div class="form-group">
-                            <label for="Password">رمز عبور</label>
+                        
                             <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور">
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
                         <!-- RePassword Input -->
                         <div class="form-group">
-                            <label for="RePassword">تکرار رمز عبور</label>
+                          
                             <input asp-for="RePassword" type="password" class="form-control" placeholder="تکرار رمز عبور">
                             <span asp-validation-for="RePassword" class="text-danger"></span>
                         </div>

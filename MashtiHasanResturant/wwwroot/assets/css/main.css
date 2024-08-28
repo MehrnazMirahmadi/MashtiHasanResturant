@@ -235,7 +235,7 @@ h6 {
 }
 
 .header .logo img {
-  max-height: 36px;
+  max-height: 50px;
   margin-right: 8px;
 }
 
@@ -1654,3 +1654,4 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+

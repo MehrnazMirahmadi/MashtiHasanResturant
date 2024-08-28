@@ -1,4 +1,19 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function DoSearch() {
+    var action = $("#frmSearch").attr("data-action");
+    var controller = $("#frmSearch").attr("data-controller");
+    var formid = "#" + $().attr("data-form-id");
+    var url = `/${controller}/${action}`;
+    var data = $(formid).serialize();
 
-// Write your JavaScript code.
+    $.get(url, data, function (ListItem) {
+        $("#DvContent").html(ListItem);
+    })
+
+}
+document.on("change", ".drp", function () {
+    DoSearch();
+})
+
+document.on("keyup", ".inp", function () {
+    DoSearch();
+})

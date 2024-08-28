@@ -99,6 +99,11 @@ namespace MashtiHasanRestaurant.Core.Services
                 .FirstOrDefault(f => f.FoodId == id);
         }
 
+        public Orders GetOrdersByCustomerId(int userId)
+        {
+           return _resturantMashtiHasanContext.Orders.FirstOrDefault(o => o.CustomerId == userId);
+        }
+
 
         //public void UpdateFoodById(int id)
         //{

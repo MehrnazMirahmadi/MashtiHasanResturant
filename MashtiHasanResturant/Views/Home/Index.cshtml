@@ -21,12 +21,68 @@
 
 </section>
 <section id="menu" class="menu section">
-    <div class="container section-title" data-aos="fade-up">
+   @*  <div class="container section-title" data-aos="fade-up">
         <h2>Our Menu</h2>
-        <p><span>Check Our</span> <span class="description-title">Yummy Menu</span></p>
+        <p><span>Check Our</span> <span class="description-title">منو</span></p>
     </div>
+ *@
 
-    <div class="container">
+    <!--********************************-->
+    <div class="row Circl mb-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <a href="#">
+                <div class="circle">
+                    <div class="circle__spin">
+                        <svg>
+                            <circle cx="50%" cy="50%" r="67px"></circle>
+                        </svg>
+                    </div>
+                    <p>سفارشات</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="#">
+                <div class="circle">
+                    <div class="circle__spin">
+                        <svg>
+                            <circle cx="50%" cy="50%" r="67px"></circle>
+                        </svg>
+                    </div>
+                    <p>مشتریان</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="#">
+                <div class="circle">
+                    <div class="circle__spin">
+                        <svg>
+                            <circle cx="50%" cy="50%" r="67px"></circle>
+                        </svg>
+                    </div>
+                    <p>کارمندان</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="#">
+                <div class="circle">
+                    <div class="circle__spin">
+                        <svg>
+                            <circle cx="50%" cy="50%" r="67px"></circle>
+                        </svg>
+                    </div>
+                    <p>خوراک ها</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <!--********************************-->
+
+    <div class="">
         <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
             @foreach (var categoryGroup in Model.GroupBy(m => new { m.CategoryName, m.CategoryId }))
             {
@@ -41,6 +97,8 @@
                 </li>
             }
         </ul>
+
+
 
         <div class="tab-content" id="#hero">
             @foreach (var categoryGroup in Model.GroupBy(m => new { m.CategoryName, m.CategoryId }))
@@ -62,7 +120,10 @@
 
                                 <h4>@item.FoodName</h4>
                                 <p class="ingredients">@item.Ingredients</p>
-                                <p class="price">$@item.UnitPrice</p>
+                              <p class="price">$@item.UnitPrice</p>
+                              <a href="#" class="btn btn-success">انتخاب</a>
+                        
+                                
                             </div>
                         }
                     </div>

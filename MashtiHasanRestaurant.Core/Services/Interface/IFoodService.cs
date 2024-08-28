@@ -21,6 +21,8 @@ namespace MashtiHasanRestaurant.Core.Services.Interface
         int AddFood(AddFoodViewModel food);
 
         Food GetFoodById(int id);
+        Orders GetOrdersByCustomerId(int userId);
+    
         //void UpdateFoodById(int id);
         //void DeleteFoodById(int id);
 

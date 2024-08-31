@@ -1,0 +1,51 @@
+﻿@using MashtiHasanRestaurant.Core.DTOs
+@model IEnumerable<NewsCategoryListItem>
+@{
+    ViewData["Title"] = "List";
+    Layout = null;
+}
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+           
+            <th>
+                نام رده
+            </th>
+            <th>
+                تعداد
+            </th>
+          
+            <th>حذف</th>
+            <th>ویرایش</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="tr_@item.CategoryID">
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodCount)
+                </td>
+                <td>
+                    <span class="btn btn-danger btn-sm btn-delete" data-controller="FoodCategory" data-action="Delete" data-id="@item.CategoryID">
+                        Delete
+                    </span>
+
+                </td>
+                <td>
+                    <span class="btn btn-primary btn-sm btn-update" data-controller="FoodCategory" data-action="Update" data-id="@item.CategoryID">
+                        Update
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

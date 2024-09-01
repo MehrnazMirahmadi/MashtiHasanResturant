@@ -122,8 +122,9 @@ $(document).on("click", ".saveAdd", function () {
     let action = $(this).attr("data-action");
     let controller = $(this).attr("data-controller");
     let formid = "#" + $(this).attr("data-form-id");
-
+    
     let sendingUrl = `/${controller}/${action}`;
+  
     let sendingData = $(formid).serialize();
     $.post(sendingUrl, sendingData, function (op) {
         if (op.success.toString() == "true") {
@@ -158,7 +159,6 @@ $(document).on("click", ".btn-add", function () {
     $.get(sendingUrl, null, function (frmAdd) {
 
         $("#dvModalContent").html(frmAdd);
-
         $("#mainModal").modal("show");
         $.validator.unobtrusive.parse($("#frmAddNewsCategory"));
     });

@@ -1,4 +1,5 @@
 ﻿using MashtiHasanRestaurant.Core.DTOs;
+using MashtiHasanRestaurant.Core.DTOs.Search;
 using MashtiHasanRestaurant.Core.Services.Interface;
 using MashtiHasanRestaurant.DataLayer.Context;
 using MashtiHasanRestaurant.DataLayer.Entities;
@@ -104,29 +105,24 @@ namespace MashtiHasanRestaurant.Core.Services
            return _resturantMashtiHasanContext.Orders.FirstOrDefault(o => o.CustomerId == userId);
         }
 
+        public async Task<List<FoodListItem>> GetAll()
+        {
+            return await _resturantMashtiHasanContext.Food.Select(foods => new FoodListItem
+            { FoodId = foods.FoodId,
+              CategoryName=foods.Category.CategoryName,
+              ImageAddress= foods.ImageAddress,
+              UnitPrice=foods.UnitPrice,
+              Ingredients = foods.Ingredient,
+              FoodName=foods.FoodName
 
-        //public void UpdateFoodById(int id)
-        //{
-        //    var food = _resturantMashtiHasanContext.Food.Find(id);
-        //    if (food == null)
-        //    {
-        //        throw new KeyNotFoundException("Food not found.");
-        //    }
+            }).ToListAsync();
 
-        //    _resturantMashtiHasanContext.Food.Update(food);
-        //    _resturantMashtiHasanContext.SaveChanges();
-        //}
 
-        //public void DeleteFoodById(int id)
-        //{
-        //    var food = _resturantMashtiHasanContext.Food.Find(id);
-        //    if (food == null)
-        //    {
-        //        throw new KeyNotFoundException("Food not found.");
-        //    }
+        }
 
-        //    _resturantMashtiHasanContext.Food.Remove(food);
-        //    _resturantMashtiHasanContext.SaveChanges();
-        //}
+        public Task<ListComplexModel> Search(SearchItems sm)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

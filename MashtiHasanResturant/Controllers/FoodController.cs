@@ -3,21 +3,35 @@ using MashtiHasanRestaurant.Core.Services.Interface;
 using MashtiHasanRestaurant.DataLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MashtiHasanRestaurant.Core.Security;
 using MashtiHasanRestaurant.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
+using MashtiHasanRestaurant.Core.DTOs.Search;
 
 namespace MashtiHasanResturant.Controllers
 {
     public class FoodController : Controller
     {
         private readonly IFoodService _foodService;
+        private readonly ICategoryService _categoryService;
         private readonly ResturantMashtiHasanContext _resturantMashtiContext;
 
-        public FoodController(IFoodService foodService,ResturantMashtiHasanContext resturantMashtiHasan)
+        public FoodController(IFoodService foodService,ResturantMashtiHasanContext resturantMashtiHasan, ICategoryService categoryService)
         {
             _foodService = foodService;
             _resturantMashtiContext = resturantMashtiHasan;
+            _categoryService = categoryService;
+        }
+        public async Task InflateCategories()
+        {
+            var cats = await _categoryService.GetAll();
+            cats.Insert(0, new NewsCategoryListItem
+            {
+                CategoryName = "...Please Select"
+            ,
+                CategoryID = -1
+            });
+            ViewBag.Categories = new SelectList(cats, "CategoryId", "CategoryName");
+
         }
         [Route("GetFoods")]
         public IActionResult Index()
@@ -94,6 +108,18 @@ namespace MashtiHasanResturant.Controllers
             _resturantMashtiContext.Food.Remove(food);
             await _resturantMashtiContext.SaveChangesAsync();
             return RedirectToAction("index");
+        }
+        #endregion
+
+        #region FoodIndex
+        public async Task<IActionResult> FoodIndex(SearchItems sm)
+        {
+            await InflateCategories();
+            return View(sm);
+        }
+        public async Task<IActionResult> FoodListAction(SearchItems sm)
+        {
+            return ViewComponent("FoodsList", sm);
         }
         #endregion
     }

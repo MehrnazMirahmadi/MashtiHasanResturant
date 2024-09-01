@@ -95,5 +95,37 @@ namespace MashtiHasanRestaurant.Core.Services
 
             }
         }
+     
+        public async Task<OperationResult> Add(FoodCategoryAddEditModel cat)
+        {
+            var op = new OperationResult();
+            var c = ToDBModel(cat);
+            try
+            {
+                _context.Category.Add(c);
+                await _context.SaveChangesAsync();
+                return op.ToSuccess("Category Added Successfully");
+            }
+            catch (Exception ex)
+            {
+
+                return op.ToFailed("Added Category Failed " + ex.Message);
+            }
+
+        }
+
+        public async Task<List<NewsCategoryListItem>> GetRoots()
+        {
+            var cats = await _context.Category.Select(x => new NewsCategoryListItem
+            {
+                CategoryName = x.CategoryName
+                ,
+                CategoryID = x.CategoryId
+                ,
+                FoodCount = x.Food.Count
+               
+            }).ToListAsync();
+            return cats;
+        }
     }
 }

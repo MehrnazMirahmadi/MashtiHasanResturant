@@ -1,11 +1,7 @@
 ﻿using MashtiHasanRestaurant.Core.DTOs;
+using MashtiHasanRestaurant.Core.DTOs.Search;
 using MashtiHasanRestaurant.DataLayer.Entities;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MashtiHasanRestaurant.Core.Services.Interface
 {
@@ -22,9 +18,8 @@ namespace MashtiHasanRestaurant.Core.Services.Interface
 
         Food GetFoodById(int id);
         Orders GetOrdersByCustomerId(int userId);
-    
-        //void UpdateFoodById(int id);
-        //void DeleteFoodById(int id);
-
+        /*******************************************************/
+        Task<List<FoodListItem>> GetAll();
+        Task<ListComplexModel> Search(SearchItems sm);
     }
 }

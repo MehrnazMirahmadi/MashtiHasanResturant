@@ -120,9 +120,47 @@ namespace MashtiHasanRestaurant.Core.Services
 
         }
 
-        public Task<ListComplexModel> Search(SearchItems sm)
+        public async Task<ListComplexModel> Search(SearchItems sm)
         {
-            throw new NotImplementedException();
+            ListComplexModel result = new ListComplexModel();
+
+            var q = from foods in _resturantMashtiHasanContext.Food
+                    select foods;
+
+            if (!string.IsNullOrEmpty(sm.Name))
+            {
+                q = q.Where(x => x.FoodName.StartsWith(sm.Name));
+            }
+
+          
+            if (sm.CategoryId > 0)
+            {
+                q = q.Where(x => x.CategoryId == sm.CategoryId);
+            }
+            if (sm.UnitPriceFrom != null) { 
+            q = q.Where(x=>x.UnitPrice >=  sm.UnitPriceFrom);
+            }
+            if(sm.UnitPriceTo !=null)
+            {
+                q=q.Where(x=>x.UnitPrice <= sm.UnitPriceTo);
+            }
+            result.RecordCount = await q.CountAsync();
+
+            result.FoodsList = await q.Skip(sm.PageIndex * sm.PageSize)
+                .Take(sm.PageSize)
+                .Select(foods => new FoodListItem
+                {
+                    CategoryName = foods.Category.CategoryName,
+                    CategoryId = foods.CategoryId,
+                    FoodName = foods.FoodName,
+                    FoodId = foods.FoodId,
+                    ImageAddress = foods.ImageAddress,
+                    UnitPrice = foods.UnitPrice,
+                    Ingredients = foods.Ingredient
+                }).ToListAsync();
+
+            return result;
         }
+
     }
 }

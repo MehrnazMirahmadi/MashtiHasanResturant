@@ -63,8 +63,8 @@ namespace MashtiHasanRestaurant.Core.Services
         public async Task<List<NewsCategoryListItem>> GetAll()
         {
             var cats =await _context.Category.Select(c => new NewsCategoryListItem
-            { 
-                CategoryID = c.CategoryId,
+            {
+                CategoryId  = c.CategoryId,
                 CategoryName = c.CategoryName,
                 FoodCount = c.Food.Count
             }).ToListAsync();
@@ -120,7 +120,7 @@ namespace MashtiHasanRestaurant.Core.Services
             {
                 CategoryName = x.CategoryName
                 ,
-                CategoryID = x.CategoryId
+                CategoryId = x.CategoryId
                 ,
                 FoodCount = x.Food.Count
                

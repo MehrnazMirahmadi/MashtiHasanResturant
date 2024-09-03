@@ -24,11 +24,12 @@ namespace MashtiHasanResturant.Controllers
         public async Task InflateCategories()
         {
             var cats = await _categoryService.GetAll();
-            cats.Insert(0, new NewsCategoryListItem
+            cats.Insert(0, new MashtiHasanRestaurant.Core.DTOs.NewsCategoryListItem
             {
+                CategoryId = -1,
                 CategoryName = "...Please Select"
-            ,
-                CategoryID = -1
+            
+               
             });
             ViewBag.Categories = new SelectList(cats, "CategoryId", "CategoryName");
 
@@ -47,14 +48,14 @@ namespace MashtiHasanResturant.Controllers
             var cats = _resturantMashtiContext.Category
                 .Select(x => new CategoryListItem
                 {
-                    CategoryID = x.CategoryId,
+                    CategoryId = x.CategoryId,
                     CategoryName = x.CategoryName
                 })
                 .ToList();
 
             var vm = new AddFoodViewModel
             {
-                Cat = new SelectList(cats, "CategoryID", "CategoryName")
+                Cat = new SelectList(cats,"CategoryId","CategoryName")
             };
 
             return View(vm);
@@ -74,14 +75,14 @@ namespace MashtiHasanResturant.Controllers
             var cats = _resturantMashtiContext.Category
                 .Select(x => new CategoryListItem
                 {
-                    CategoryID = x.CategoryId,
+                    CategoryId = x.CategoryId,
                     CategoryName = x.CategoryName
                 })
                 .ToList();
 
             var vm = new AddFoodViewModel
             {
-                Cat = new SelectList(cats, "CategoryID", "CategoryName")
+                Cat = new SelectList(cats, "CategoryId", "CategoryName")
             };
 
             return View(vm);

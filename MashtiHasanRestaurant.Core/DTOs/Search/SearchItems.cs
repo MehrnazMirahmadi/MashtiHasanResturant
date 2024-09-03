@@ -10,6 +10,8 @@ namespace MashtiHasanRestaurant.Core.DTOs.Search
         public string Description { get; set; }
         public string Family { get; set; }
         public string Tel { get; set; }
+        public int CategoryId {  get; set; }
+        public string CategoryName { get; set; }
         public int? UnitPriceFrom{ get; set; }
         public int? UnitPriceTo {  get; set; }   
         public DateTime? DateFrom { get; set; }

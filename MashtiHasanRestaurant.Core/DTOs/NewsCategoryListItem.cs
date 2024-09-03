@@ -8,7 +8,7 @@ namespace MashtiHasanRestaurant.Core.DTOs
 {
     public class NewsCategoryListItem
     {
-        public int CategoryID { get; set; }
+        public int CategoryId  { get; set; }
         public string CategoryName { get; set; }
         public int FoodCount { get; set; }
     }

@@ -22,9 +22,9 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr id="tr_@item.CategoryID">
+            <tr id="tr_@item.CategoryId">
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryID)
+                    @Html.DisplayFor(modelItem => item.CategoryId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryName)
@@ -34,13 +34,13 @@
                     @Html.DisplayFor(modelItem => item.FoodCount)
                 </td>
                 <td>
-                    <span class="btn btn-danger btn-sm btn-delete" data-controller="FoodCategory" data-action="Delete" data-id="@item.CategoryID">
+                    <span class="btn btn-danger btn-sm btn-delete" data-controller="FoodCategory" data-action="Delete" data-id="@item.CategoryId">
                         Delete
                     </span>
 
                 </td>
                 <td>
-                    <span class="btn btn-primary btn-sm btn-update" data-controller="FoodCategory" data-action="Update" data-id="@item.CategoryID">
+                    <span class="btn btn-primary btn-sm btn-update" data-controller="FoodCategory" data-action="Update" data-id="@item.CategoryId">
                         Update
                     </span>
                 </td>

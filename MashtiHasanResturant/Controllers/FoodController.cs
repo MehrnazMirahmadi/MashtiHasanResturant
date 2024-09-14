@@ -69,7 +69,7 @@ namespace MashtiHasanResturant.Controllers
             {
                 _resturantMashtiContext.Food.Add(food);
                 await _resturantMashtiContext.SaveChangesAsync();
-                return RedirectToAction("GetFoods");
+                return RedirectToAction("FoodIndex");
             }
 
             var cats = _resturantMashtiContext.Category
@@ -86,6 +86,8 @@ namespace MashtiHasanResturant.Controllers
             };
 
             return View(vm);
+          
+
         }
 
         #endregion
@@ -108,7 +110,7 @@ namespace MashtiHasanResturant.Controllers
             var food = await _resturantMashtiContext.Food.FirstOrDefaultAsync(x => x.FoodId == FoodId);
             _resturantMashtiContext.Food.Remove(food);
             await _resturantMashtiContext.SaveChangesAsync();
-            return RedirectToAction("index");
+            return RedirectToAction("FoodIndex");
         }
         #endregion
 

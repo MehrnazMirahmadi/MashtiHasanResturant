@@ -1,0 +1,50 @@
+﻿@using MashtiHasanRestaurant.Core.DTOs
+@model List<FoodListItem>
+
+@{
+    ViewData["Title"] = "Default";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <td>
+            دسته بندی
+        </td>
+        <td>
+            غذا
+        </td>
+        <td>
+            قیمت
+        </td>
+        @* <td>
+            عکس 
+        </td> *@
+ 
+    </tr>
+    @foreach (var item in this.Model)
+    {
+        <tr>
+            <td>@item.CategoryName</td>
+            <td>
+                @item.FoodName
+            </td>
+            <td>
+                @item.UnitPrice
+            </td>
+          @*   <td>
+                <img src='@Url.Content(@item.ImageAddress)' width="200" />
+            </td> *@
+            <td>
+            <td>
+                <form asp-action="Delete" asp-controller="Food" method="post">
+                    <button asp-action="Delete" value="@item.FoodId" name="FoodId">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+
+

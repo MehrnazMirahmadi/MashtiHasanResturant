@@ -3,21 +3,36 @@ using MashtiHasanRestaurant.Core.Services.Interface;
 using MashtiHasanRestaurant.DataLayer.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MashtiHasanRestaurant.Core.Security;
 using MashtiHasanRestaurant.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
+using MashtiHasanRestaurant.Core.DTOs.Search;
 
 namespace MashtiHasanResturant.Controllers
 {
     public class FoodController : Controller
     {
         private readonly IFoodService _foodService;
+        private readonly ICategoryService _categoryService;
         private readonly ResturantMashtiHasanContext _resturantMashtiContext;
 
-        public FoodController(IFoodService foodService,ResturantMashtiHasanContext resturantMashtiHasan)
+        public FoodController(IFoodService foodService,ResturantMashtiHasanContext resturantMashtiHasan, ICategoryService categoryService)
         {
             _foodService = foodService;
             _resturantMashtiContext = resturantMashtiHasan;
+            _categoryService = categoryService;
+        }
+        public async Task InflateCategories()
+        {
+            var cats = await _categoryService.GetAll();
+            cats.Insert(0, new MashtiHasanRestaurant.Core.DTOs.NewsCategoryListItem
+            {
+                CategoryId = -1,
+                CategoryName = "...Please Select"
+            
+               
+            });
+            ViewBag.Categories = new SelectList(cats, "CategoryId", "CategoryName");
+
         }
         [Route("GetFoods")]
         public IActionResult Index()
@@ -33,14 +48,14 @@ namespace MashtiHasanResturant.Controllers
             var cats = _resturantMashtiContext.Category
                 .Select(x => new CategoryListItem
                 {
-                    CategoryID = x.CategoryId,
+                    CategoryId = x.CategoryId,
                     CategoryName = x.CategoryName
                 })
                 .ToList();
 
             var vm = new AddFoodViewModel
             {
-                Cat = new SelectList(cats, "CategoryID", "CategoryName")
+                Cat = new SelectList(cats,"CategoryId","CategoryName")
             };
 
             return View(vm);
@@ -54,23 +69,25 @@ namespace MashtiHasanResturant.Controllers
             {
                 _resturantMashtiContext.Food.Add(food);
                 await _resturantMashtiContext.SaveChangesAsync();
-                return RedirectToAction("GetFoods");
+                return RedirectToAction("FoodIndex");
             }
 
             var cats = _resturantMashtiContext.Category
                 .Select(x => new CategoryListItem
                 {
-                    CategoryID = x.CategoryId,
+                    CategoryId = x.CategoryId,
                     CategoryName = x.CategoryName
                 })
                 .ToList();
 
             var vm = new AddFoodViewModel
             {
-                Cat = new SelectList(cats, "CategoryID", "CategoryName")
+                Cat = new SelectList(cats, "CategoryId", "CategoryName")
             };
 
             return View(vm);
+          
+
         }
 
         #endregion
@@ -93,7 +110,19 @@ namespace MashtiHasanResturant.Controllers
             var food = await _resturantMashtiContext.Food.FirstOrDefaultAsync(x => x.FoodId == FoodId);
             _resturantMashtiContext.Food.Remove(food);
             await _resturantMashtiContext.SaveChangesAsync();
-            return RedirectToAction("index");
+            return RedirectToAction("FoodIndex");
+        }
+        #endregion
+
+        #region FoodIndex
+        public async Task<IActionResult> FoodIndex(SearchItems sm)
+        {
+            await InflateCategories();
+            return View(sm);
+        }
+        public async Task<IActionResult> FoodListAction(SearchItems sm)
+        {
+            return ViewComponent("FoodsList", sm);
         }
         #endregion
     }

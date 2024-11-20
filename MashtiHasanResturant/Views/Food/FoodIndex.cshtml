@@ -1,0 +1,46 @@
+﻿@using MashtiHasanRestaurant.Core.DTOs.Search
+@model SearchItems
+@{
+    SelectList Categories = (SelectList)ViewBag.Categories;
+    Layout = null;
+}
+
+<div class="container mt-3">
+    <form asp-action="FoodIndex" asp-controller="Food" method="get" data-form-id="frmSearch" id="frmSearch" data-controller="Food" data-action="FoodListAction">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <td>دسته بندی</td>
+                <td>
+                    <select asp-for="CategoryId" asp-items="Categories" class="form-control"></select>
+                </td>
+            </tr>
+            <tr>
+                <td>نام غذا</td>
+                <td>
+                    <input asp-for="Name" class="form-control" id="Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>قیمت از</td>
+                <td>
+                    <input asp-for="UnitPriceFrom" class="form-control" id="UnitPriceFrom" />
+                </td>
+            </tr>
+            <tr>
+                <td>قیمت تا</td>
+                <td>
+                    <input asp-for="UnitPriceTo" class="form-control" id="UnitPriceTo" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dvList">
+    @await Component.InvokeAsync("FoodsList", this.Model)
+</div>
+

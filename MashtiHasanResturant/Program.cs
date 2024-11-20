@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 #region IoC
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 #endregion
 #region dbContext
 builder.Services.AddDbContext<ResturantMashtiHasanContext>(options => options.UseSqlServer(

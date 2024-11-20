@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace MashtiHasanRestaurant.Core.DTOs
 {
-    public class CategoryListItem
+    public class NewsCategoryListItem
     {
-        public int CategoryId { get; set; }
+        public int CategoryId  { get; set; }
         public string CategoryName { get; set; }
+        public int FoodCount { get; set; }
     }
 }

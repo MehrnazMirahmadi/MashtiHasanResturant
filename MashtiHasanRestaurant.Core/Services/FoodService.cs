@@ -1,4 +1,5 @@
 ﻿using MashtiHasanRestaurant.Core.DTOs;
+using MashtiHasanRestaurant.Core.DTOs.Search;
 using MashtiHasanRestaurant.Core.Services.Interface;
 using MashtiHasanRestaurant.DataLayer.Context;
 using MashtiHasanRestaurant.DataLayer.Entities;
@@ -99,29 +100,67 @@ namespace MashtiHasanRestaurant.Core.Services
                 .FirstOrDefault(f => f.FoodId == id);
         }
 
+        public Orders GetOrdersByCustomerId(int userId)
+        {
+           return _resturantMashtiHasanContext.Orders.FirstOrDefault(o => o.CustomerId == userId);
+        }
 
-        //public void UpdateFoodById(int id)
-        //{
-        //    var food = _resturantMashtiHasanContext.Food.Find(id);
-        //    if (food == null)
-        //    {
-        //        throw new KeyNotFoundException("Food not found.");
-        //    }
+        public async Task<List<FoodListItem>> GetAll()
+        {
+            return await _resturantMashtiHasanContext.Food.Select(foods => new FoodListItem
+            { FoodId = foods.FoodId,
+              CategoryName=foods.Category.CategoryName,
+              ImageAddress= foods.ImageAddress,
+              UnitPrice=foods.UnitPrice,
+              Ingredients = foods.Ingredient,
+              FoodName=foods.FoodName
 
-        //    _resturantMashtiHasanContext.Food.Update(food);
-        //    _resturantMashtiHasanContext.SaveChanges();
-        //}
+            }).ToListAsync();
 
-        //public void DeleteFoodById(int id)
-        //{
-        //    var food = _resturantMashtiHasanContext.Food.Find(id);
-        //    if (food == null)
-        //    {
-        //        throw new KeyNotFoundException("Food not found.");
-        //    }
 
-        //    _resturantMashtiHasanContext.Food.Remove(food);
-        //    _resturantMashtiHasanContext.SaveChanges();
-        //}
+        }
+
+        public async Task<ListComplexModel> Search(SearchItems sm)
+        {
+            ListComplexModel result = new ListComplexModel();
+
+            var q = from foods in _resturantMashtiHasanContext.Food
+                    select foods;
+
+            if (!string.IsNullOrEmpty(sm.Name))
+            {
+                q = q.Where(x => x.FoodName.StartsWith(sm.Name));
+            }
+
+          
+            if (sm.CategoryId > 0)
+            {
+                q = q.Where(x => x.CategoryId == sm.CategoryId);
+            }
+            if (sm.UnitPriceFrom != null) { 
+            q = q.Where(x=>x.UnitPrice >=  sm.UnitPriceFrom);
+            }
+            if(sm.UnitPriceTo !=null)
+            {
+                q=q.Where(x=>x.UnitPrice <= sm.UnitPriceTo);
+            }
+            result.RecordCount = await q.CountAsync();
+
+            result.FoodsList = await q.Skip(sm.PageIndex * sm.PageSize)
+                .Take(sm.PageSize)
+                .Select(foods => new FoodListItem
+                {
+                    CategoryName = foods.Category.CategoryName,
+                    CategoryId = foods.CategoryId,
+                    FoodName = foods.FoodName,
+                    FoodId = foods.FoodId,
+                    ImageAddress = foods.ImageAddress,
+                    UnitPrice = foods.UnitPrice,
+                    Ingredients = foods.Ingredient
+                }).ToListAsync();
+
+            return result;
+        }
+
     }
 }

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace MashtiHasanRestaurant.Core.DTOs
 {
-    public class CategoryListItem
+    public class FoodCategoryAddEditModel
     {
         public int CategoryId { get; set; }
+
         public string CategoryName { get; set; }
+
+        public string Description { get; set; }
     }
 }

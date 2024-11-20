@@ -19,7 +19,8 @@ namespace MashtiHasanRestaurant.Core.DTOs
         public int UnitPrice { get; set; }
         public string ImageAddress { get; set; }
         public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
+        public int CategoryId {  get; set; }
+        
     }
   
     public class AddFoodViewModel

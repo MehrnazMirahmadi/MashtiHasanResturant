@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MashtiHasanResturant.Controllers
@@ -56,7 +57,19 @@ namespace MashtiHasanResturant.Controllers
         {
             return View();
         }
+        #region AddToCart
+        public IActionResult AddToCart(int ItemId)
+        {
+            var food = _foodService.GetFoodById(ItemId);
+            if (food != null)
+            {
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier).ToString());
+                var order = _foodService.GetOrdersByCustomerId(userId);
 
+            }
+            return View();
+        }
+        #endregion
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
